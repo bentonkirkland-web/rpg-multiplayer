@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Star Trek Multiplayer RPG</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="hud">
+  <p id="playerName"></p>
+  <p>HP: <span id="hp"></span></p>
+  <p>Energy: <span id="energy"></span></p>
+</div>
+<div id="gameArea"></div>
+
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+<script>
+  const socket = io('http://localhost:5000');
+
+  socket.on('connect', () => {
+    console.log('Connected to server');
+  });
+socket.on('updatePlayer', (data) => {
+  document.getElementById('playerName').textContent = data.name;
+  document.getElementById('hp').textContent = data.hp;
+  document.getElementById('energy').textContent = data.energy;
+});
