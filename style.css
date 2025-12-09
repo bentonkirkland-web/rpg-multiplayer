@@ -1,18 +1,101 @@
-body, html { margin:0; padding:0; overflow:hidden; font-family:Arial; color:#0ff; }
-#gameArea {
-    width:100vw; height:100vh;
-    background-image: url('assets/images/galaxy1.jpg');
-    background-size: cover;
-    position: relative;
+/* General reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif; /* Futuristic font */
 }
-.player {
-    width: 50px; height:50px;
-    position: absolute;
-    background-image: url('assets/images/ship.png');
-    background-size: cover;
+
+body {
+  background: radial-gradient(circle at top, #000010, #000000 70%);
+  color: #00fffc;
+  overflow: hidden;
+  height: 100vh;
 }
+
+/* HUD Styling */
 #hud {
-    position: absolute; top: 10px; left: 10px;
-    background: rgba(0,0,0,0.5);
-    padding: 10px; border-radius:5px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #00fffc;
+  border-radius: 10px;
+  padding: 15px;
+  width: 220px;
+  font-size: 14px;
+  box-shadow: 0 0 15px #00fffc;
+}
+
+#hud p {
+  margin-bottom: 10px;
+}
+
+#hud span {
+  font-weight: bold;
+}
+
+/* Game Area */
+#gameArea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #000010, #000000 80%);
+}
+
+/* Stars effect */
+#gameArea::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: transparent;
+  box-shadow:
+    50px 100px #ffffff,
+    300px 200px #ffffff,
+    600px 400px #ffffff,
+    900px 50px #ffffff,
+    1200px 300px #ffffff,
+    1500px 200px #ffffff,
+    1800px 600px #ffffff;
+  animation: twinkle 10s linear infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { transform: translate(0,0); opacity: 1; }
+  50% { transform: translate(-50px,-50px); opacity: 0.7; }
+}
+
+/* Glowing bars for HP & Energy */
+#hud span {
+  display: inline-block;
+  min-width: 50px;
+  text-align: right;
+}
+
+/* Optional: animated pulse for HP */
+@keyframes pulse {
+  0%, 100% { text-shadow: 0 0 5px #ff0000; }
+  50% { text-shadow: 0 0 15px #ff0000; }
+}
+
+#hud span.hp-low {
+  color: #ff3f3f;
+  animation: pulse 1s infinite;
+}
+
+/* Floating holographic effect */
+#hud {
+  backdrop-filter: blur(4px);
+  border-left: 3px solid #00fffc;
+  border-top: 3px solid #00fffc;
+}
+
+/* Player Name Glow */
+#playerName {
+  font-size: 18px;
+  text-shadow: 0 0 10px #00fff0, 0 0 20px #00fff0;
 }
